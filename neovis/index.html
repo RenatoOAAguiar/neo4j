@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>NEO 4J</title>
+    <script src="https://cdn.neo4jlabs.com/neovis.js/v1.2.1/neovis.js"></script>
+    <script type="text/javascript">
+
+        var viz;
+
+        function draw() {
+            var config = {
+                container_id: "viz",
+                server_url: "bolt://localhost:7687",
+                server_user: "neo4j",
+                server_password: "renato",
+                labels: {
+                    "Person": {
+                        "id": "<id>",
+                        "born": "born",
+                        "name": "name"
+                    }
+                },
+                relationships: {
+                    
+                },
+                initial_cypher: "MATCH (n)-[r:ACTED_IN|:HAS_CONTACT|:DIRECTED|:PRODUCED]->(m) RETURN * LIMIT 50"
+            };
+
+            viz = new NeoVis.default(config);
+            viz.render();
+        }
+    </script>
+    <style type="text/css">
+        html, body {
+            font: 16pt arial;
+        }
+
+        #viz {
+            height: 700px;
+            border: 1px solid lightgray;
+            font: 22pt arial;
+        }
+    </style>
+</head>
+<body onload="draw()">
+    <div id="viz"></div>
+</body>   
+</html>
